@@ -1,0 +1,33 @@
+{% extends 'events/base.html' %} {% block title %}Dashboard - Zentro{%endblock%} {% block content %}
+<h2>Dashboard</h2>
+
+<p>Welcome, <strong>{{ user.first_name }} {{ user.last_name }}</strong></p>
+<p>Role: <strong>{{ user.role|title }}</strong></p>
+
+<hr />
+{% if user.is_superuser %}
+<h3>Admin Actions</h3>
+<ul>
+  <li><a href="/admin/events/venue/">Manage Venues</a></li>
+  <li><a href="/admin/events/event/">Manage Events</a></li>
+  <li><a href="/admin/auth/user/">Manage Users</a></li>
+  <li><a href="/admin/events/eventregistration/">View Registrations</a></li>
+  <li><a href="/admin/events/ticket/">Manage Tickets</a></li>
+  <li><a href="/admin/events/payment/">Manage Payments</a></li>
+</ul>
+{% elif user.role == 'organizer' %}
+<h3>Organizer Actions</h3>
+<ul>
+  <li><a href="{% url 'create_event' %}">Create Event</a></li>
+  <li><a href="{% url 'organizer_registrations' %}">View All Registrations</a></li>
+  <li><a href="{% url 'my_events' %}">My Events</a></li>
+</ul>
+
+{% elif user.role == 'attendee' %}
+<h3>Attendee Actions</h3>
+<ul>
+  <li><a href="{% url 'browse_events' %}">Browse Events</a></li>
+  <li><a href="{% url 'my_tickets' %}">My Tickets</a></li>
+</ul>
+
+{% endif %} {% endblock %}

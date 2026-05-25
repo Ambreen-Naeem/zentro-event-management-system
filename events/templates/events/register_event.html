@@ -1,0 +1,27 @@
+{% extends 'events/base.html' %} {% block title %}Register for {{ event.title }}{% endblock %} {% block content %}
+
+<h2>Register for {{ event.title }}</h2>
+
+<p>Venue: {{ event.venue.name }}</p>
+<p>Start: {{ event.start_datetime }}</p>
+<p>End: {{ event.end_datetime }}</p>
+
+<form method="POST">
+  {% csrf_token %} {{ form.as_p }}
+
+  <p>Price: $<span id="ticket-price">0.00</span></p>
+
+  <button type="submit">Register & Purchase Ticket</button>
+</form>
+<script>
+  const prices = {{ ticket_prices|safe }};
+  const select = document.querySelector('select[name="ticket_type"]');
+  const priceSpan = document.getElementById('ticket-price');
+
+  select.addEventListener('change', function() {
+      priceSpan.textContent = prices[this.value];
+  });
+</script>
+<p>Or you can <strong>register now and pay later</strong> by leaving the ticket payment empty and completing it from <a href="{% url 'my_tickets' %}">My Tickets</a>.</p>
+
+{% endblock %}

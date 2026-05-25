@@ -1,0 +1,4 @@
+{% extends 'events/base.html' %} {% block title %}Pay Ticket - Zentro{% endblock %} {% block content %}
+<h2>Pay for Ticket: {{ ticket.registration.event.title }}</h2>
+<form method="POST">{% csrf_token %} {{ form.as_p }} <button type="submit">Pay Now</button></form>
+{% endblock %}

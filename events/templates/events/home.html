@@ -1,0 +1,26 @@
+{% extends 'events/base.html' %} {% block title %}Home - Zentro{% endblock %} {% block content %}
+<h2>Welcome to Zentro</h2>
+<p>Zentro is an Event Management System that helps organizers create events and attendees manage tickets easily.</p>
+
+<hr />
+
+{% if not user.is_authenticated %}
+
+<h3>Login</h3>
+
+<form method="POST" class="form">
+  {% csrf_token %}
+  <input type="text" name="username" placeholder="Username" required />
+  <input type="password" name="password" placeholder="Password" required />
+  <button type="submit">Login</button>
+</form>
+
+{% else %}
+
+<p>You are already logged in.</p>
+<p><a href="{% url 'dashboard' %}">Go to Dashboard</a></p>
+
+{% endif %}
+
+<p class="signup-link">Don’t have an account? <a href="{% url 'signup' %}">Sign up here</a></p>
+{% endblock %}

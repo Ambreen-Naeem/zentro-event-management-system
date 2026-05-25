@@ -1,0 +1,33 @@
+{% extends 'events/base.html' %} {% block title %}Registrations - {{ event.title }}{% endblock %} {% block content %}
+<h2>Registrations for {{ event.title }}</h2>
+
+{% if registrations %}
+<table border="1" cellpadding="10">
+  <tr>
+    <th>Attendee</th>
+    <th>Ticket</th>
+    <th>Price</th>
+    <th>Payment Status</th>
+  </tr>
+  {% for reg in registrations %}
+  <tr>
+    <td>
+      {{ reg.attendee.user.first_name }} {{ reg.attendee.user.last_name }}<br />
+      {{ reg.attendee.phone }}
+    </td>
+    {% with reg.ticket_set.first as ticket %} {% if ticket %}
+    <td>{{ ticket.ticket_type }}</td>
+    <td>${{ ticket.price }}</td>
+    <td>{% if ticket.payment_set.exists %} Paid {% else %} Pending {% endif %}</td>
+    {% else %}
+    <td colspan="3">No ticket</td>
+    {% endif %} {% endwith %}
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No registrations yet.</p>
+{% endif %}
+
+<a href="{% url 'my_events' %}">⬅ Back to My Events</a>
+{% endblock %}

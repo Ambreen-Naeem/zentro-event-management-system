@@ -1,0 +1,53 @@
+{% extends 'events/base.html' %} {% block title %}Sign Up - Zentro{% endblock %} {% block content %}
+<h2>Create Your Account</h2>
+
+<form method="POST" class="form">
+  {% csrf_token %}
+  <input type="text" name="first_name" placeholder="First Name" required />
+  <input type="text" name="last_name" placeholder="Last Name" required />
+  <input type="text" name="username" placeholder="Username" required />
+  <input type="email" name="email" placeholder="Email" required />
+
+  <input type="password" name="password1" placeholder="Password" required />
+  <input type="password" name="password2" placeholder="Confirm Password" required />
+
+  <select name="role" id="role" required>
+    <option value="">Register as</option>
+    <option value="organizer">Organizer</option>
+    <option value="attendee">Attendee</option>
+  </select>
+
+  <div id="attendee-field" style="display: none">
+    <input type="text" name="phone" placeholder="Phone Number" />
+  </div>
+
+  <div id="organizer-field" style="display: none">
+    <input type="text" name="organization" placeholder="Organization Name" />
+  </div>
+
+  <button type="submit">Create Account</button>
+</form>
+
+<p>
+  Already have an account?
+  <a href="{% url 'home' %}">Login here</a>
+</p>
+<script>
+  const roleSelect = document.getElementById("role");
+  const attendeeField = document.getElementById("attendee-field");
+  const organizerField = document.getElementById("organizer-field");
+
+  roleSelect.addEventListener("change", function () {
+    attendeeField.style.display = "none";
+    organizerField.style.display = "none";
+
+    if (this.value === "attendee") {
+      attendeeField.style.display = "block";
+    }
+
+    if (this.value === "organizer") {
+      organizerField.style.display = "block";
+    }
+  });
+</script>
+{% endblock %}

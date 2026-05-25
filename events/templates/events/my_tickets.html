@@ -1,0 +1,43 @@
+{% extends 'events/base.html' %} {% block title %}My Tickets - Zentro{% endblock %} {% block content %}
+
+<h2>My Tickets</h2>
+
+{% if registrations %}
+<table border="1" cellpadding="10">
+  <tr>
+    <th>Event</th>
+    <th>Venue</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Ticket Type</th>
+    <th>Price</th>
+    <th>Payment Status</th>
+    <th>Actions</th>
+  </tr>
+
+  {% for reg in registrations %}
+  <tr>
+    <td>{{ reg.event.title }}</td>
+    <td>{{ reg.event.venue.name }}</td>
+    <td>{{ reg.event.start_datetime }}</td>
+    <td>{{ reg.event.end_datetime }}</td>
+
+    {% with reg.ticket as ticket %} {% if ticket %}
+    <td>{{ ticket.ticket_type }}</td>
+    <td>${{ ticket.price }}</td>
+    <td style="color: {% if ticket.payment_set.exists %}green{% else %}red{% endif %};">{% if ticket.payment_set.exists %} Paid {% else %} Pending {% endif %}</td>
+    <td>
+      {% if not ticket.payment_set.exists %}
+      <a href="{% url 'pay_ticket' ticket.id %}">Pay Now</a>
+      {% else %} Paid {% endif %} |
+      <a href="{% url 'cancel_registration' reg.id %}">Cancel</a>
+    </td>
+    {% else %}
+    <td colspan="4">No ticket purchased</td>
+    {% endif %} {% endwith %}
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>You have no tickets yet. <a href="{% url 'browse_events' %}">Browse Events</a> to register.</p>
+{% endif %} {% endblock %}

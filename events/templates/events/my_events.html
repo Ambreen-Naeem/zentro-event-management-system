@@ -1,0 +1,40 @@
+{% extends 'events/base.html' %} {% block title %}My Events - Zentro{% endblock %} {% block content %}
+
+<h2>My Events</h2>
+
+{% if events %}
+<table border="1" cellpadding="10">
+  <tr>
+    <th>Title</th>
+    <th>Venue</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Capacity</th>
+    <th>Total Registrations</th>
+    <th>Paid</th>
+    <th>Unpaid</th>
+
+    <th>Actions</th>
+  </tr>
+  {% for event in events %}
+  <tr>
+    <td>{{ event.title }}</td>
+    <td>{{ event.venue.name }}</td>
+    <td>{{ event.start_datetime }}</td>
+    <td>{{ event.end_datetime }}</td>
+    <td>{{ event.capacity }}</td>
+
+    <td>{{ event.total_regs }}</td>
+    <td>{{ event.paid_regs }}</td>
+    <td>{{ event.unpaid_regs }}</td>
+
+    <td>
+      <a href="{% url 'edit_event' event.id %}">Edit</a> | <a href="{% url 'delete_event' event.id %}">Delete</a> | {% if event.status != 'cancelled' %} <a href="{% url 'cancel_event' event.id %}">Cancel</a> | {% else %} Cancelled {% endif %}
+      <a href="{% url 'event_registrations' event.id %}">View Registrations</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No events created yet. <a href="{% url 'create_event' %}">Create one now!</a></p>
+{% endif %} {% endblock %}

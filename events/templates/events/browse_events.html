@@ -1,0 +1,35 @@
+{% extends 'events/base.html' %} {% block title %}Browse Events - Zentro{% endblock %} {% block content %}
+<h2>Browse Events</h2>
+
+{% if events %}
+<table border="1" cellpadding="10">
+  <tr>
+    <th>Title</th>
+    <th>Venue</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Capacity</th>
+    <th>Status</th>
+    <th>Action</th>
+  </tr>
+  {% for event in events %}
+  <tr>
+    <td>{{ event.title }}</td>
+    <td>{{ event.venue.name }}</td>
+    <td>{{ event.start_datetime }}</td>
+    <td>{{ event.end_datetime }}</td>
+    <td>{{ event.capacity }}</td>
+    <td>{{ event.status|title }}</td>
+    <td>
+      {% if user.is_authenticated and user.role == 'attendee' %} {% if event.status != 'cancelled' %} {% if event.id in registered_ids %} Already Registered {% else %}
+      <a href="{% url 'register_event' event.id %}">Register & Select Ticket</a>
+      {% endif %} {% else %} Cancelled {% endif %} {% else %}
+      <a href="{% url 'home' %}">Login to Register</a>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No upcoming events at the moment.</p>
+{% endif %} {% endblock %}

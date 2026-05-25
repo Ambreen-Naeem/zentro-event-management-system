@@ -1,0 +1,12 @@
+{% extends 'events/base.html' %} {% block title %}Cancel Event - Zentro {%endblock %} {% block content %}
+
+<h2>Cancel Event: {{ event.title }}</h2>
+<p>Are you sure you want to cancel this event? You can’t undo this action.</p>
+
+<form method="POST">
+  {% csrf_token %}
+  <button type="submit">Yes, Cancel Event</button>
+  <a href="{% url 'my_events' %}">Go Back</a>
+</form>
+
+{% endblock %}
