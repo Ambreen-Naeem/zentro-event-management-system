@@ -93,7 +93,7 @@ http://127.0.0.1:8000/
 ### 📝 Sign Up Page
 
 
-![Sign Up](screenshots/Sign%20UpPage.jpeg)
+![Sign Up](screenshots/Sign%20Up.jpeg)
 
 ---
 
