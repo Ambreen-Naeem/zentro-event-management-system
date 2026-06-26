@@ -88,16 +88,45 @@ http://127.0.0.1:8000/
 - User profile management
 - Deployment on cloud
 
-## Screenshots
+## 📸 Screenshots
 
+### 📝 Sign Up Page
+
+```md
+![Sign Up Page](screenshots/Sign%20UpPage.jpeg)
+```
+
+### 🔑 Login Page
+
+```md
+![Login](screenshots/Login.jpeg)
+```
+
+### 📊 Dashboard
+
+```md
+![Dashboard](screenshots/Dashboard.jpeg)
+```
+
+### 🏠 Home Page
+
+```md
+![Home](screenshots/Home%20Page.jpeg)
+```
+
+### 📅 My Events
+
+```md
+![My Events](screenshots/My%20Events.jpeg)
+```
 
 
 ## Author
 
 Ambreen Naeem
+Sameea Amjad
 
 ---
-
 ## Framework
 
 Built using Django Framework
